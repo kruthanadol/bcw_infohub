@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>โรงเรียนบัวเชดวิทยา | Buachedwittaya School Portal & Live Showcase</title>
+    <!-- Favicon / แท็บไอคอนเบราว์เซอร์ -->
+    <link rel="icon" type="image/png" href="https://via.placeholder.com/64?text=BCW"> 
+    
+
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Sarabun & Chakra Petch -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bcw: {
+                            green: '#1E5631',       /* Primary School Green */
+                            darkgreen: '#133E21',   /* Dark Forest Green */
+                            lightgreen: '#22C55E',  /* Emerald Accent */
+                            softgreen: '#F0FDF4',   /* Soft Green Background */
+                            gold: '#EAB308'         /* Accent Gold */
+                        }
+                    },
+                    fontFamily: {
+                        sarabun: ['Sarabun', 'sans-serif'],
+                        chakra: ['Chakra Petch', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+   <style>
+  body { font-family: 'Sarabun', sans-serif; background-color: #f8fafc; color: #1e293b; scroll-behavior: smooth; }
+  .glass-header { background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+  .glass-card { background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid #e2e8f0; }
+  
+  /* Microsoft Edge & Cross-browser Scrollbar Support */
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: #f1f5f9; }
+  ::-webkit-scrollbar-thumb { background: #1E5631; border-radius: 4px; }
+  
+  .hide-scrollbar::-webkit-scrollbar { display: none; }
+  .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  
+  .dropdown-menu { display: none; }
+  .dropdown-group:hover .dropdown-menu { display: block; }
+  .chat-drawer-active { transform: translateX(0) !important; }
+  @keyframes marquee { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }
+  .animate-marquee { display: inline-flex; white-space: nowrap; animation: marquee 30s linear infinite; }
+  .animate-marquee:hover { animation-play-state: paused; }
+  .story-ring { background: linear-gradient(45deg, #1E5631, #22C55E, #EAB308); padding: 2px; border-radius: 9999px; }
+
+  /* ล็อกความสูงโซนรูปภาพให้เท่ากันทุกกล่อง ไม่กระทบกล่องข้างๆ */
+  .activity-image-grid {
+    display: grid;
+    gap: 4px;
+    height: 260px; /* กำหนดความสูงคงที่ */
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 10px;
+  }
+
+  .activity-image-grid img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* ตัดขอบรูปอัตโนมัติ ไม่ให้ภาพเบี้ยว */
+  }
+
+  /* จัด Layout ตามจำนวนรูปภาพ (1-4 รูป) */
+  .activity-image-grid.count-1 { grid-template-columns: 1fr; }
+  .activity-image-grid.count-2 { grid-template-columns: 1fr 1fr; }
+  .activity-image-grid.count-3 { 
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+  .activity-image-grid.count-3 img:first-child { grid-row: span 2; }
+  .activity-image-grid.count-4 { 
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+
+  /* เลเยอร์แสดงจำนวนรูปภาพที่เหลือ (+N) */
+  .more-images-overlay {
+    position: relative;
+    height: 100%;
+  }
+  .more-images-overlay::after {
+    content: attr(data-more);
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    color: #ffffff;
+    font-size: 1.25rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+</style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-bcw-green selection:text-white">
+
+
+    <!-- Top Utility Bar -->
+    <div class="bg-bcw-darkgreen text-emerald-100 text-xs py-1.5 px-4 border-b border-emerald-700/50">
+        <div class="max-w-7xl mx-auto flex justify-between items-center gap-2">
+            <div class="flex items-center space-x-3 text-[11px] sm:text-xs truncate">
+                <span class="flex items-center gap-1.5 font-medium"><i class="fa-solid fa-graduation-cap text-bcw-gold"></i> โรงเรียนบัวเชดวิทยา สพม.สุรินทร์</span>
+                <span class="hidden md:inline text-emerald-300/80">|</span>
+                <span class="hidden md:inline"><i class="fa-solid fa-phone text-emerald-400 mr-1"></i> 044-579-107</span>
+                <span class="hidden lg:inline text-emerald-300/80">|</span>
+                <span class="hidden lg:inline text-amber-300 font-chakra" id="dailyDateText"></span>
+            </div>
+            
+            <div class="flex items-center space-x-2 shrink-0" id="ssoBarContainer">
+                <button onclick="openLoginModal()" id="btnTeacherLogin" class="bg-emerald-800/80 hover:bg-emerald-700 text-emerald-100 border border-emerald-500/40 px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all flex items-center gap-1.5 shadow-xs">
+                    <i class="fa-brands fa-google text-amber-300"></i>
+                    <span>เข้าสู่ระบบครู</span>
+                </button>
+                <div id="loggedInUserBadge" class="hidden items-center gap-2 bg-emerald-950 border border-emerald-400/50 text-emerald-200 px-2.5 py-1 rounded-lg text-[11px]">
+                    <i class="fa-solid fa-circle-user text-emerald-400"></i>
+                    <span id="txtUserEmail" class="max-w-[120px] sm:max-w-none truncate">kru.teacher@buached.ac.th</span>
+                    <button onclick="handleLogout()" title="ออกจากระบบ" class="text-emerald-300 hover:text-white ml-1">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navigation Header -->
+    <header class="sticky top-0 z-40 glass-header shadow-sm border-b border-emerald-100/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-20 gap-2">
+                
+	<!-- Logo & School Name -->
+                <div class="flex items-center space-x-2.5 sm:space-x-3 cursor-pointer shrink-0" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-emerald-50 p-1 shadow-xs border-2 border-bcw-green flex items-center justify-center overflow-hidden shrink-0">
+                        <!-- โลโก้โรงเรียนบัวเชดวิทยา -->
+                        <img src="bcw-logo.jpg" alt="ตราประจำโรงเรียนบัวเชดวิทยา" class="w-full h-full object-contain">
+                    </div>
+                    <div>
+                        <div class="flex items-center space-x-1.5">
+                            <h1 class="font-chakra font-bold text-base sm:text-xl md:text-2xl tracking-tight text-bcw-darkgreen leading-tight">
+                                โรงเรียนบัวเชดวิทยา
+                            </h1>
+                            <span class="px-1.5 py-0.5 rounded-full text-[9px] font-chakra bg-emerald-100 text-bcw-green border border-emerald-300 hidden sm:inline-flex items-center gap-1 font-semibold">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i> AI
+                            </span>
+                        </div>
+                        <p class="text-[10px] sm:text-xs text-slate-500 font-light tracking-wide">
+                            Buachedwittaya School Portal
+                        </p>
+                    </div>
+                </div>
+
+
+                <!-- Desktop Navigation Menu Bar -->
+                <nav class="hidden lg:flex items-center space-x-1 font-chakra text-xs md:text-sm font-medium text-slate-700">
+                    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="px-3 py-1.5 rounded-lg text-bcw-green font-bold bg-emerald-50 border border-emerald-200/80 transition-all">หน้าแรก</button>
+
+                    <div class="relative dropdown-group">
+                        <button class="px-3 py-1.5 rounded-lg hover:bg-emerald-50 hover:text-bcw-green transition-all flex items-center gap-1">
+                            <span>เกี่ยวกับโรงเรียน</span><i class="fa-solid fa-chevron-down text-[9px] opacity-60"></i>
+                        </button>
+                        <div class="dropdown-menu absolute left-0 top-full pt-1 w-52 z-50">
+                            <div class="bg-white text-slate-800 rounded-xl shadow-xl border border-slate-200 overflow-hidden text-xs py-1">
+                                <a href="javascript:void(0)" onclick="openInfoModal('about')" class="block px-3.5 py-2 hover:bg-emerald-50 hover:text-bcw-green font-medium transition-all border-b border-slate-100"><i class="fa-solid fa-landmark text-bcw-green mr-2"></i>ประวัติ & อัตลักษณ์</a>
+                                <a href="javascript:void(0)" onclick="openInfoModal('vision')" class="block px-3.5 py-2 hover:bg-emerald-50 hover:text-bcw-green font-medium transition-all border-b border-slate-100"><i class="fa-solid fa-eye text-bcw-green mr-2"></i>วิสัยทัศน์ / พันธกิจ</a>
+                                <a href="javascript:void(0)" onclick="openInfoModal('chart')" class="block px-3.5 py-2 hover:bg-emerald-50 hover:text-bcw-green font-medium transition-all"><i class="fa-solid fa-sitemap text-bcw-green mr-2"></i>โครงสร้างการบริหารงาน</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="relative dropdown-group">
+                        <button class="px-3 py-1.5 rounded-lg hover:bg-emerald-50 hover:text-bcw-green transition-all flex items-center gap-1">
+                            <span>ผู้บริหาร & บุคลากร</span><i class="fa-solid fa-chevron-down text-[9px] opacity-60"></i>
+                        </button>
+                        <div class="dropdown-menu absolute left-0 top-full pt-1 w-52 z-50">
+                            <div class="bg-white text-slate-800 rounded-xl shadow-xl border border-slate-200 overflow-hidden text-xs py-1">
+                                <a href="javascript:void(0)" onclick="openExecutivesModal()" class="block px-3.5 py-2 hover:bg-emerald-50 hover:text-bcw-green font-medium transition-all border-b border-slate-100"><i class="fa-solid fa-user-tie text-bcw-green mr-2"></i>คณะผู้บริหารโรงเรียน</a>
+                                <a href="javascript:void(0)" onclick="openStaffModal()" class="block px-3.5 py-2 hover:bg-emerald-50 hover:text-bcw-green font-medium transition-all"><i class="fa-solid fa-users text-bcw-green mr-2"></i>ทำเนียบบุคลากรครู</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="#downloadSection" class="px-3 py-1.5 rounded-lg hover:bg-emerald-50 hover:text-bcw-green transition-all">เอกสาร</a>
+                    <a href="#contactFooter" class="px-3 py-1.5 rounded-lg hover:bg-emerald-50 hover:text-bcw-green transition-all">ติดต่อเรา</a>
+                </nav>
+
+                <!-- Top Right Action Buttons -->
+                <div class="flex items-center space-x-1.5 sm:space-x-2 shrink-0">
+                    <button onclick="toggleChatDrawer()" class="flex items-center space-x-1 bg-emerald-50 hover:bg-emerald-100 text-bcw-darkgreen border border-emerald-300 font-semibold px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-xl text-xs transition-all shadow-2xs">
+                        <i class="fa-solid fa-robot text-bcw-green text-sm"></i>
+                        <span class="hidden md:inline">ถาม AI</span>
+                    </button>
+                    <button onclick="openModal()" class="flex items-center space-x-1.5 bg-bcw-green hover:bg-bcw-darkgreen text-white font-bold px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl shadow-xs hover:shadow-md transition-all text-xs">
+                        <i class="fa-solid fa-camera-retro text-sm"></i>
+                        <span class="hidden sm:inline">โพสต์กิจกรรม</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Marquee Ticker -->
+    <div class="bg-emerald-50 border-b border-emerald-200 py-1.5 overflow-hidden flex items-center text-xs font-medium text-bcw-darkgreen">
+        <div class="px-3 bg-bcw-green text-white font-bold py-0.5 rounded-r-full shrink-0 flex items-center gap-1 shadow-2xs text-[11px] z-10 mr-2">
+            <i class="fa-solid fa-bullhorn text-amber-300"></i> ประกาศ
+        </div>
+        <div class="overflow-hidden flex-grow relative">
+            <div id="tickerContainer" class="animate-marquee">
+                <span class="mx-6">ยินดีต้อนรับสู่ระบบโพสต์ข่าวสารและแสดงผลกิจกรรมสด โรงเรียนบัวเชดวิทยา</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION: แจ้งเตือน -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-3">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-2.5 items-stretch">
+            
+            <!-- แจ้งเตือนกิจกรรม & กำหนดการใกล้จะถึง -->
+            <div class="lg:col-span-7 bg-white/80 backdrop-blur-sm p-2.5 rounded-2xl border border-slate-200/80 shadow-xs flex flex-col justify-center">
+                <div class="flex items-center justify-between mb-2 px-1 border-b border-slate-100 pb-1.5">
+                    <div class="flex items-center gap-1.5">
+                        <span class="relative flex h-2.5 w-2.5">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-rose-500"></span>
+                        </span>
+                        <span class="text-[10px] font-bold font-chakra text-slate-700">กิจกรรม & กำหนดการใกล้จะถึง (Upcoming)</span>
+                    </div>
+                    <button onclick="openInfoModal('calendar')" class="text-[9px] font-chakra font-bold text-emerald-600 hover:text-emerald-800 transition-all flex items-center gap-0.5">
+                        <span>ปฏิทินทั้งหมด</span>
+                        <i class="fa-solid fa-chevron-right text-[8px]"></i>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2" id="upcomingCalendarWidget">
+                    <!-- Dynamic Upcoming Calendar Cards -->
+                </div>
+            </div>
+
+            <!-- กล่องผู้บริหาร -->
+            <div class="lg:col-span-5 grid grid-cols-2 gap-2">
+                <div class="bg-indigo-50/70 p-2 rounded-2xl border-2 border-indigo-200 shadow-xs flex flex-col items-center text-center justify-center relative overflow-hidden group">
+                    <div class="w-11 h-13 rounded-lg overflow-hidden border-2 border-indigo-300 shadow-xs mb-1 shrink-0">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=200&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-300" alt="ผู้อำนวยการ">
+                    </div>
+                    <div class="w-full">
+                        <h5 class="font-chakra font-bold text-[10px] text-indigo-900 truncate leading-tight">นายสมพงษ์ พัฒนากุล</h5>
+                        <p class="text-[8px] font-medium text-indigo-600 truncate">ผู้อำนวยการโรงเรียน</p>
+                    </div>
+                </div>
+
+                <div class="bg-sky-50/70 p-2 rounded-2xl border-2 border-sky-200 shadow-xs flex flex-col items-center text-center justify-center relative overflow-hidden group">
+                    <div class="w-11 h-13 rounded-lg overflow-hidden border-2 border-sky-300 shadow-xs mb-1 shrink-0">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-300" alt="ประธานกรรมการสถานศึกษา">
+                    </div>
+                    <div class="w-full">
+                        <h5 class="font-chakra font-bold text-[10px] text-sky-900 truncate leading-tight">นายณรงค์ศักดิ์ สุขใจ</h5>
+                        <p class="text-[8px] font-medium text-sky-600 truncate">ประธานกรรมการฯ</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: ผลงาน & รางวัลแห่งความภาคภูมิใจ -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div class="bg-white/90 backdrop-blur-md rounded-2xl border border-slate-200/80 shadow-sm p-4 sm:p-6 relative overflow-hidden" onmouseenter="stopAutoSlide()" onmouseleave="startAutoSlide()">
+            
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 mb-4 border-b border-slate-100 gap-3">
+                <div class="flex items-center gap-2.5">
+                    <span class="w-9 h-9 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-base shadow-2xs">
+                        <i class="fa-solid fa-trophy"></i>
+                    </span>
+                    <div>
+                        <h3 class="text-sm sm:text-base font-bold font-chakra text-slate-800 leading-none">ผลงาน & รางวัลแห่งความภาคภูมิใจ</h3>
+                        <p class="text-xs text-slate-400 font-chakra mt-1">โรงเรียนบัวเชดวิทยา</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-1 bg-slate-100/80 p-1.5 rounded-xl border border-slate-200/60 text-xs font-chakra font-bold self-start sm:self-auto">
+                    <button onclick="goToSlide(0)" id="tab-0" class="tab-btn px-3 py-1.5 rounded-lg transition-all bg-white text-emerald-700 shadow-2xs">
+                        <i class="fa-solid fa-school mr-1"></i>โรงเรียน
+                    </button>
+                    <button onclick="goToSlide(1)" id="tab-1" class="tab-btn px-3 py-1.5 rounded-lg transition-all text-slate-500 hover:text-slate-800">
+                        <i class="fa-solid fa-chalkboard-user mr-1"></i>ครูผู้สอน
+                    </button>
+                    <button onclick="goToSlide(2)" id="tab-2" class="tab-btn px-3 py-1.5 rounded-lg transition-all text-slate-500 hover:text-slate-800">
+                        <i class="fa-solid fa-user-graduate mr-1"></i>นักเรียน
+                    </button>
+                </div>
+            </div>
+
+            <!-- Content Area: ภาพใหญ่เต็มตา 2 เรื่องคู่กัน -->
+            <div class="relative min-h-[280px]">
+                
+                <!-- Slide 0: ด้านโรงเรียน -->
+                <div id="slide-0" class="slide-item grid grid-cols-1 md:grid-cols-2 gap-4 transition-all duration-500">
+                    <div class="relative h-64 sm:h-72 rounded-2xl overflow-hidden shadow-md group border border-slate-200/80 flex flex-col justify-end">
+                        <img src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=800&q=80" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+                        <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-emerald-600 text-white text-[10px] font-bold font-chakra shadow-sm">
+                            <i class="fa-solid fa-award mr-1"></i>ระดับประเทศ
+                        </span>
+                        <div class="relative p-4 sm:p-5 text-white space-y-1.5">
+                            <span class="px-2 py-0.5 rounded bg-emerald-500/80 text-emerald-100 text-[10px] font-bold font-chakra backdrop-blur-xs">สถานศึกษาคุณภาพ</span>
+                            <h4 class="text-sm sm:text-base font-bold font-chakra leading-snug drop-shadow-sm">รางวัลสถานศึกษานวัตกรรมเกียรติยศ ระดับยอดเยี่ยม</h4>
+                            <p class="text-xs text-slate-200 line-clamp-2 leading-relaxed opacity-90">ผ่านการประเมินคุณภาพการศึกษาขั้นพื้นฐาน ด้วยผลการดำเนินงานการพัฒนานวัตกรรมยกระดับการเรียนรู้ดีเยี่ยม</p>
+                        </div>
+                    </div>
+
+                    <div class="relative h-64 sm:h-72 rounded-2xl overflow-hidden shadow-md group border border-slate-200/80 flex flex-col justify-end">
+                        <img src="https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?auto=format&fit=crop&w=800&q=80" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+                        <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-amber-500 text-white text-[10px] font-bold font-chakra shadow-sm">
+                            <i class="fa-solid fa-star mr-1"></i>ระดับจังหวัด
+                        </span>
+                        <div class="relative p-4 sm:p-5 text-white space-y-1.5">
+                            <span class="px-2 py-0.5 rounded bg-amber-500/80 text-amber-100 text-[10px] font-bold font-chakra backdrop-blur-xs">โรงเรียนสีขาว</span>
+                            <h4 class="text-sm sm:text-base font-bold font-chakra leading-snug drop-shadow-sm">สถานศึกษาสีขาว ปลอดยาเสพติดและอบายมุข</h4>
+                            <p class="text-xs text-slate-200 line-clamp-2 leading-relaxed opacity-90">รางวัลเชิดชูเกียรติการบริหารจัดการด้านการป้องกันและแก้ไขปัญหายาเสพติดอย่างยั่งยืน</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 1: ด้านครูผู้สอน -->
+                <div id="slide-1" class="slide-item hidden grid grid-cols-1 md:grid-cols-2 gap-4 transition-all duration-500">
+                    <div class="relative h-64 sm:h-72 rounded-2xl overflow-hidden shadow-md group border border-slate-200/80 flex flex-col justify-end">
+                        <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=800&q=80" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+                        <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-indigo-600 text-white text-[10px] font-bold font-chakra shadow-sm">
+                            <i class="fa-solid fa-graduation-cap mr-1"></i>กลุ่มวิทยาศาสตร์
+                        </span>
+                        <div class="relative p-4 sm:p-5 text-white space-y-1.5">
+                            <span class="px-2 py-0.5 rounded bg-indigo-500/80 text-indigo-100 text-[10px] font-bold font-chakra backdrop-blur-xs">ครูดีเด่น</span>
+                            <h4 class="text-sm sm:text-base font-bold font-chakra leading-snug drop-shadow-sm">นายสมศักดิ์ รักเรียน — รางวัลครูดีไม่มีอบายมุข</h4>
+                            <p class="text-xs text-slate-200 line-clamp-2 leading-relaxed opacity-90">ครูผู้สร้างสรรค์นวัตกรรมการเรียนรู้ เป็นแบบอย่างที่ดีด้านศีลธรรมและพัฒนาศักยภาพผู้เรียนอย่างต่อเนื่อง</p>
+                        </div>
+                    </div>
+
+                    <div class="relative h-64 sm:h-72 rounded-2xl overflow-hidden shadow-md group border border-slate-200/80 flex flex-col justify-end">
+                        <img src="https://images.unsplash.com/photo-1580894732413-a70d2a09531d?auto=format&fit=crop&w=800&q=80" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+                        <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-blue-600 text-white text-[10px] font-bold font-chakra shadow-sm">
+                            <i class="fa-solid fa-certificate mr-1"></i>กลุ่มคณิตศาสตร์
+                        </span>
+                        <div class="relative p-4 sm:p-5 text-white space-y-1.5">
+                            <span class="px-2 py-0.5 rounded bg-blue-500/80 text-blue-100 text-[10px] font-bold font-chakra backdrop-blur-xs">OBEC AWARDS</span>
+                            <h4 class="text-sm sm:text-base font-bold font-chakra leading-snug drop-shadow-sm">ครูอารีรัตน์ — รางวัลทรงคุณค่า OBEC AWARDS</h4>
+                            <p class="text-xs text-slate-200 line-clamp-2 leading-relaxed opacity-90">รางวัลครูผู้สอนยอดเยี่ยม กลุ่มสาระการเรียนรู้คณิตศาสตร์ ระดับภาคตะวันออกเฉียงเหนือ</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 2: ด้านนักเรียน -->
+                <div id="slide-2" class="slide-item hidden grid grid-cols-1 md:grid-cols-2 gap-4 transition-all duration-500">
+                    <div class="relative h-64 sm:h-72 rounded-2xl overflow-hidden shadow-md group border border-slate-200/80 flex flex-col justify-end">
+                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+                        <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-amber-500 text-white text-[10px] font-bold font-chakra shadow-sm">
+                            <i class="fa-solid fa-trophy mr-1"></i>เหรียญทองระดับชาติ
+                        </span>
+                        <div class="relative p-4 sm:p-5 text-white space-y-1.5">
+                            <span class="px-2 py-0.5 rounded bg-amber-500/80 text-amber-100 text-[10px] font-bold font-chakra backdrop-blur-xs">การแข่งขัน AI</span>
+                            <h4 class="text-sm sm:text-base font-bold font-chakra leading-snug drop-shadow-sm">นายณัฐภัทร ใจดี — ชนะเลิศโครงงานนวัตกรรม AI</h4>
+                            <p class="text-xs text-slate-200 line-clamp-2 leading-relaxed opacity-90">ได้รับรางวัลชนะเลิศอันดับ 1 ในการแข่งขันพัฒนาซอฟต์แวร์ประยุกต์ งานศิลปหัตถกรรมนักเรียนครั้งล่าสุด</p>
+                        </div>
+                    </div>
+
+                    <div class="relative h-64 sm:h-72 rounded-2xl overflow-hidden shadow-md group border border-slate-200/80 flex flex-col justify-end">
+                        <img src="https://images.unsplash.com/photo-1567057419565-4349c49d8a04?auto=format&fit=crop&w=800&q=80" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+                        <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-rose-600 text-white text-[10px] font-bold font-chakra shadow-sm">
+                            <i class="fa-solid fa-medal mr-1"></i>กีฬาฟุตซอล
+                        </span>
+                        <div class="relative p-4 sm:p-5 text-white space-y-1.5">
+                            <span class="px-2 py-0.5 rounded bg-rose-500/80 text-rose-100 text-[10px] font-bold font-chakra backdrop-blur-xs">รองชนะเลิศ</span>
+                            <h4 class="text-sm sm:text-base font-bold font-chakra leading-snug drop-shadow-sm">ทีมฟุตซอล ม.ปลาย — ถ้วยรางวัลสพม.สุรินทร์</h4>
+                            <p class="text-xs text-slate-200 line-clamp-2 leading-relaxed opacity-90">คว้าตำแหน่งรองชนะเลิศอันดับ 1 การแข่งขันฟุตซอลนักเรียนชิงแชมป์จังหวัดสุรินทร์</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ตัวเลขสถิติ -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 max-w-2xl mx-auto text-center pt-3">
+            <div class="bg-emerald-900/80 backdrop-blur-sm rounded-xl p-2 border border-emerald-700/50 shadow-sm">
+                <div class="text-base sm:text-lg font-bold font-chakra text-amber-300" id="statTotal">0</div>
+                <div class="text-[10px] text-emerald-100">กิจกรรมทั้งหมด</div>
+            </div>
+            <div class="bg-emerald-900/80 backdrop-blur-sm rounded-xl p-2 border border-emerald-700/50 shadow-sm">
+                <div class="text-base sm:text-lg font-bold font-chakra text-rose-300" id="statLikes">99+</div>
+                <div class="text-[10px] text-emerald-100">กำลังใจสะสม ❤️</div>
+            </div>
+            <div class="bg-emerald-900/80 backdrop-blur-sm rounded-xl p-2 border border-emerald-700/50 shadow-sm">
+                <div class="text-base sm:text-lg font-bold font-chakra text-emerald-300" id="statAcademic">0</div>
+                <div class="text-[10px] text-emerald-100">วิชาการ & กิจกรรม</div>
+            </div>
+            <div class="bg-emerald-900/80 backdrop-blur-sm rounded-xl p-2 border border-emerald-700/50 shadow-sm">
+                <div class="text-base sm:text-lg font-bold font-chakra text-amber-300">100%</div>
+                <div class="text-[10px] text-emerald-100">โพสต์ใหม่ทุกวัน</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+        
+        <!-- MOST VIEWED POSTS SLIDER BOX -->
+        <section class="bg-white/70 backdrop-blur-sm rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-2xs relative overflow-hidden">
+            <div class="flex items-center justify-between mb-3 border-b border-slate-100 pb-2.5">
+                <div class="flex items-center gap-2">
+                    <span class="w-6 h-6 rounded-lg bg-rose-50 text-rose-500 flex items-center justify-center font-bold text-xs">
+                        <i class="fa-solid fa-fire"></i>
+                    </span>
+                    <div>
+                        <h2 class="text-xs sm:text-sm font-bold font-chakra text-slate-800 tracking-wide">
+                            กิจกรรมยอดนิยม (Most Viewed Showcase)
+                        </h2>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-1">
+                    <button onclick="scrollMostViewedSlider(-1)" class="w-7 h-7 rounded-lg bg-slate-50 hover:bg-emerald-50 text-slate-500 hover:text-bcw-green border border-slate-200/80 flex items-center justify-center transition-all text-xs">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                    <button onclick="scrollMostViewedSlider(1)" class="w-7 h-7 rounded-lg bg-slate-50 hover:bg-emerald-50 text-slate-500 hover:text-bcw-green border border-slate-200/80 flex items-center justify-center transition-all text-xs">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div id="mostViewedSlider" class="flex gap-3 overflow-x-auto scroll-smooth hide-scrollbar py-1">
+                <!-- Dynamic Minimalist Slider Items -->
+            </div>
+        </section>
+
+        <!-- GRID 2 คอลัมน์ -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- ฝั่งซ้าย (2 ส่วน) -->
+            <div class="lg:col-span-2 space-y-8">
+                
+                <!-- กิจกรรมเด่นวันนี้ 4 กล่อง -->
+                <section class="bg-white/80 backdrop-blur-sm p-3.5 sm:p-4 rounded-2xl border border-slate-200/80 shadow-sm space-y-3">
+                    <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+                        <div class="flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xs">
+                                <i class="fa-solid fa-star"></i>
+                            </span>
+                            <h3 class="text-xs sm:text-sm font-bold font-chakra text-slate-800">กิจกรรมเด่นวันนี้</h3>
+                        </div>
+                        <span class="text-[10px] text-slate-400 font-chakra">ภาพบรรยากาศล่าสุด</span>
+                    </div>
+
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5">
+                        <div class="bg-slate-50 rounded-xl p-2 border border-slate-200/60 hover:border-emerald-300 hover:shadow-sm transition-all group flex flex-col justify-between">
+                            <div class="space-y-1.5">
+                                <div class="w-full h-24 sm:h-28 rounded-lg overflow-hidden relative">
+                                    <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-300" alt="กิจกรรมที่ 1">
+                                    <span class="absolute top-1.5 left-1.5 px-1.5 py-0.5 rounded bg-black/60 text-white text-[9px] font-chakra backdrop-blur-xs">
+                                        <i class="fa-regular fa-calendar-check mr-1 text-emerald-400"></i>วันนี้
+                                    </span>
+                                </div>
+                                <h4 class="font-chakra font-bold text-xs text-slate-800 line-clamp-1 group-hover:text-emerald-700 transition-colors">พิธีมอบทุนการศึกษาประจำปี</h4>
+                                <p class="text-[10px] text-slate-500 line-clamp-1">มอบทุนการศึกษาแก่นักเรียนเรียนดีแต่ขาดแคลน</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-50 rounded-xl p-2 border border-slate-200/60 hover:border-emerald-300 hover:shadow-sm transition-all group flex flex-col justify-between">
+                            <div class="space-y-1.5">
+                                <div class="w-full h-24 sm:h-28 rounded-lg overflow-hidden relative">
+                                    <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-300" alt="กิจกรรมที่ 2">
+                                    <span class="absolute top-1.5 left-1.5 px-1.5 py-0.5 rounded bg-black/60 text-white text-[9px] font-chakra backdrop-blur-xs">
+                                        <i class="fa-regular fa-calendar-check mr-1 text-emerald-400"></i>วันนี้
+                                    </span>
+                                </div>
+                                <h4 class="font-chakra font-bold text-xs text-slate-800 line-clamp-1 group-hover:text-emerald-700 transition-colors">การแข่งขันกีฬาสีภายใน</h4>
+                                <p class="text-[10px] text-slate-500 line-clamp-1">บรรยากาศการแข่งขันฟุตซอลและกรีฑารอบชิงชนะเลิศ</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-50 rounded-xl p-2 border border-slate-200/60 hover:border-emerald-300 hover:shadow-sm transition-all group flex flex-col justify-between">
+                            <div class="space-y-1.5">
+                                <div class="w-full h-24 sm:h-28 rounded-lg overflow-hidden relative">
+                                    <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-300" alt="กิจกรรมที่ 3">
+                                    <span class="absolute top-1.5 left-1.5 px-1.5 py-0.5 rounded bg-black/60 text-white text-[9px] font-chakra backdrop-blur-xs">
+                                        <i class="fa-regular fa-clock mr-1 text-amber-400"></i>เมื่อวาน
+                                    </span>
+                                </div>
+                                <h4 class="font-chakra font-bold text-xs text-slate-800 line-clamp-1 group-hover:text-emerald-700 transition-colors">อบรมเชิงปฏิบัติการ AI</h4>
+                                <p class="text-[10px] text-slate-500 line-clamp-1">นักเรียนชั้น ม.ปลาย ร่วมเวิร์กชอปประยุกต์ใช้ AI</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-50 rounded-xl p-2 border border-slate-200/60 hover:border-emerald-300 hover:shadow-sm transition-all group flex flex-col justify-between">
+                            <div class="space-y-1.5">
+                                <div class="w-full h-24 sm:h-28 rounded-lg overflow-hidden relative">
+                                    <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-300" alt="กิจกรรมที่ 4">
+                                    <span class="absolute top-1.5 left-1.5 px-1.5 py-0.5 rounded bg-black/60 text-white text-[9px] font-chakra backdrop-blur-xs">
+                                        <i class="fa-regular fa-clock mr-1 text-amber-400"></i>เมื่อวาน
+                                    </span>
+                                </div>
+                                <h4 class="font-chakra font-bold text-xs text-slate-800 line-clamp-1 group-hover:text-emerald-700 transition-colors">กิจกรรมจิตอาสา</h4>
+                                <p class="text-[10px] text-slate-500 line-clamp-1">ตัวแทนกรรมการนักเรียนร่วมพัฒนาสวนสมุนไพร</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Search & Filter Tabs -->
+                <div class="glass-card rounded-2xl p-4 shadow-sm">
+                    <div class="flex flex-col gap-3">
+                        <div class="relative w-full">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </span>
+                            <input type="text" id="searchInput" oninput="filterPosts()" placeholder="ค้นหาชื่อกิจกรรม, ชื่อครูผู้โพสต์..." 
+                                class="w-full pl-10 pr-4 py-2 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-bcw-green outline-none">
+                        </div>
+
+                        <div class="flex items-center space-x-1 overflow-x-auto pb-1 hide-scrollbar text-xs font-medium">
+                            <button onclick="setDepartmentFilter('all')" id="tab-all" class="dept-tab active px-3 py-1.5 rounded-lg whitespace-nowrap bg-bcw-green text-white shadow-sm">ทั้งหมด</button>
+                            <button onclick="setDepartmentFilter('วิชาการ')" id="tab-วิชาการ" class="dept-tab px-3 py-1.5 rounded-lg whitespace-nowrap bg-slate-100 text-slate-600">วิชาการ</button>
+                            <button onclick="setDepartmentFilter('งบประมาณ')" id="tab-งบประมาณ" class="dept-tab px-3 py-1.5 rounded-lg whitespace-nowrap bg-slate-100 text-slate-600">งบประมาณ</button>
+                            <button onclick="setDepartmentFilter('บุคคล')" id="tab-บุคคล" class="dept-tab px-3 py-1.5 rounded-lg whitespace-nowrap bg-slate-100 text-slate-600">บริหารบุคคล</button>
+                            <button onclick="setDepartmentFilter('ทั่วไป')" id="tab-ทั่วไป" class="dept-tab px-3 py-1.5 rounded-lg whitespace-nowrap bg-slate-100 text-slate-600">บริหารทั่วไป</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Google Sheets Live Feed Grid -->
+                <section class="space-y-3">
+                    <div class="flex items-center justify-between pb-1 border-b border-slate-100">
+                        <h3 class="text-xs sm:text-sm font-bold font-chakra text-slate-800 flex items-center gap-1.5">
+                            <i class="fa-solid fa-newspaper text-bcw-green"></i>
+                            ฟีดกิจกรรม BCW
+                        </h3>
+                        <button onclick="loadNewsFeed()" class="px-2.5 py-0.5 bg-slate-100 hover:bg-bcw-green hover:text-white text-slate-600 rounded-md text-[10px] font-bold transition-all flex items-center gap-1">
+                            <i class="fa-solid fa-rotate text-[9px]"></i> รีเฟรช
+                        </button>
+                    </div>
+                    <div id="news-feed-container" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="col-span-full text-center py-10 text-slate-400 text-xs">⏳ กำลังเชื่อมต่อฐานข้อมูล Google Sheets...</div>
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- ฝั่งขวา (1 ส่วน): ปฏิทิน + Facebook -->
+            <div class="flex flex-col gap-4 w-full">
+
+                <!-- 1. กล่องปฏิทินกิจกรรม -->
+                <div class="bg-white/80 backdrop-blur-sm p-3.5 rounded-2xl border border-slate-200/80 shadow-sm space-y-2.5">
+                    <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-5 h-5 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-[10px]">
+                                <i class="fa-solid fa-calendar-days"></i>
+                            </span>
+                            <h3 class="text-xs font-bold font-chakra text-slate-800">ปฏิทินปฏิบัติงาน & กิจกรรม</h3>
+                        </div>
+                        <button onclick="openInfoModal('calendar')" class="text-[9px] font-chakra font-bold text-emerald-600 hover:text-emerald-800 flex items-center gap-0.5 transition-all">
+                            <span>ดูทั้งหมด</span>
+                            <i class="fa-solid fa-angle-right text-[8px]"></i>
+                        </button>
+                    </div>
+
+                    <div class="space-y-1.5" id="sidebarCalendarEvents">
+                        <!-- Dynamic Sidebar Calendar List -->
+                    </div>
+                </div>
+
+                <!-- 2. กล่อง Feed Facebook -->
+                <div class="bg-white/90 backdrop-blur-sm p-3 rounded-2xl border border-slate-200/80 shadow-xs space-y-2 sticky top-24">
+                    <div class="flex items-center justify-between pb-1.5 border-b border-slate-100">
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-4 h-4 rounded bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-[9px]">
+                                <i class="fa-brands fa-facebook-f"></i>
+                            </span>
+                            <h3 class="text-[11px] font-bold font-chakra text-slate-700">เพจโรงเรียนบัวเชดวิทยา</h3>
+                        </div>
+                        <a href="https://www.facebook.com/buachedwittaya" target="_blank" class="text-[9px] font-chakra font-semibold text-blue-600 hover:text-blue-800 flex items-center gap-0.5 transition-colors">
+                            <span>ติดตามเพจ</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-[7px]"></i>
+                        </a>
+                    </div>
+
+                    <p class="text-[9px] text-slate-400 leading-tight">เกาะติดข่าวประชาสัมพันธ์จากเพจ Facebook หลักของโรงเรียน</p>
+
+                    <!-- Facebook Plugin Frame -->
+                    <div class="w-full h-[450px] rounded-xl overflow-hidden bg-slate-50 border border-slate-200/60 flex items-center justify-center">
+                        <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fbuachedwittaya&tabs=timeline&width=340&height=450&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false" 
+                            class="w-full h-full border-none overflow-hidden" 
+                            scrolling="no" 
+                            frameborder="0" 
+                            allowfullscreen="true" 
+                            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+                        </iframe>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <!-- SECTION: ศูนย์ดาวน์โหลดเอกสารสำหรับครู & บุคลากร -->
+    <section id="downloadSection" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-6 w-full">
+        <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-4 sm:p-6 border border-slate-200/80 shadow-2xs">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 mb-4 border-b border-slate-100">
+                <div class="flex items-center gap-2">
+                    <span class="w-7 h-7 rounded-xl bg-emerald-50 text-bcw-green flex items-center justify-center font-bold text-xs">
+                        <i class="fa-solid fa-folder-open"></i>
+                    </span>
+                    <div>
+                        <h3 class="text-xs sm:text-sm font-bold font-chakra text-slate-800">ศูนย์ดาวน์โหลดเอกสาร & แบบฟอร์มโรงเรียน</h3>
+                        <p class="text-[10px] text-slate-400">แบบฟอร์มงานวิชาการ บุคคล งบประมาณ และบริหารทั่วไป</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2 self-start sm:self-center">
+                    <span id="downloadUserStatus" class="px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 text-[10px] font-bold font-chakra flex items-center gap-1 border border-slate-200">
+                        <i class="fa-solid fa-lock text-[9px] text-amber-500"></i>
+                        <span>บุคคลทั่วไป (เฉพาะหัวข้อ)</span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                <!-- เอกสารที่ 1: วิชาการ -->
+                <div class="p-3 rounded-xl bg-slate-50/70 hover:bg-white border border-slate-200/60 hover:border-emerald-300 hover:shadow-xs transition-all flex flex-col justify-between space-y-2 group">
+                    <div class="space-y-1.5">
+                        <div class="flex items-center justify-between">
+                            <span class="px-2 py-0.2 rounded bg-blue-50 text-blue-600 text-[9px] font-bold">วิชาการ</span>
+                            <span class="text-[9px] text-slate-400"><i class="fa-regular fa-file-pdf text-rose-500 mr-1"></i>PDF (1.2 MB)</span>
+                        </div>
+                        <h4 class="text-xs font-bold font-chakra text-slate-800 group-hover:text-emerald-700 transition-colors leading-snug">แบบฟอร์มแผนการจัดการเรียนรู้ ประจำปีการศึกษา 2569</h4>
+                        <p class="text-[10px] text-slate-500 line-clamp-1">แบบฟอร์มมาตรฐานสำหรับครูผู้สอนใช้ประกอบการจัดทำแผนการเรียนรู้</p>
+                    </div>
+                    <div class="pt-1.5 border-t border-slate-100 flex items-center justify-between text-[9px]">
+                        <span class="text-slate-400">15 ก.ย. 2569</span>
+                        <button onclick="checkDownloadAuth('แผนการจัดการเรียนรู้_2569.pdf')" class="px-2.5 py-1 rounded-lg border border-slate-200 group-hover:border-emerald-500 group-hover:bg-bcw-green group-hover:text-white text-slate-600 text-[10px] font-bold font-chakra transition-all flex items-center gap-1">
+                            <i class="fa-solid fa-download text-[9px]"></i>
+                            <span>ดาวน์โหลด</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- เอกสารที่ 2: บุคคล -->
+                <div class="p-3 rounded-xl bg-slate-50/70 hover:bg-white border border-slate-200/60 hover:border-emerald-300 hover:shadow-xs transition-all flex flex-col justify-between space-y-2 group">
+                    <div class="space-y-1.5">
+                        <div class="flex items-center justify-between">
+                            <span class="px-2 py-0.2 rounded bg-amber-50 text-amber-700 text-[9px] font-bold">บุคคล</span>
+                            <span class="text-[9px] text-slate-400"><i class="fa-regular fa-file-word text-blue-500 mr-1"></i>DOCX (245 KB)</span>
+                        </div>
+                        <h4 class="text-xs font-bold font-chakra text-slate-800 group-hover:text-emerald-700 transition-colors leading-snug">แบบใบลาป่วย ลากิจส่วนตัว และลาพักผ่อนข้าราชการครู</h4>
+                        <p class="text-[10px] text-slate-500 line-clamp-1">แบบฟอร์มขออนุญาตลาปฏิบัติราชการของบุคลากรโรงเรียนบัวเชดวิทยา</p>
+                    </div>
+                    <div class="pt-1.5 border-t border-slate-100 flex items-center justify-between text-[9px]">
+                        <span class="text-slate-400">10 ก.ย. 2569</span>
+                        <button onclick="checkDownloadAuth('แบบใบลาข้าราชการครู.docx')" class="px-2.5 py-1 rounded-lg border border-slate-200 group-hover:border-emerald-500 group-hover:bg-bcw-green group-hover:text-white text-slate-600 text-[10px] font-bold font-chakra transition-all flex items-center gap-1">
+                            <i class="fa-solid fa-download text-[9px]"></i>
+                            <span>ดาวน์โหลด</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- เอกสารที่ 3: งบประมาณ -->
+                <div class="p-3 rounded-xl bg-slate-50/70 hover:bg-white border border-slate-200/60 hover:border-emerald-300 hover:shadow-xs transition-all flex flex-col justify-between space-y-2 group">
+                    <div class="space-y-1.5">
+                        <div class="flex items-center justify-between">
+                            <span class="px-2 py-0.2 rounded bg-emerald-50 text-emerald-700 text-[9px] font-bold">งบประมาณ</span>
+                            <span class="text-[9px] text-slate-400"><i class="fa-regular fa-file-excel text-emerald-600 mr-1"></i>XLSX (180 KB)</span>
+                        </div>
+                        <h4 class="text-xs font-bold font-chakra text-slate-800 group-hover:text-emerald-700 transition-colors leading-snug">แบบฟอร์มขออนุมัติจัดซื้อ/จัดจ้าง วัสดุอุปกรณ์การเรียน</h4>
+                        <p class="text-[10px] text-slate-500 line-clamp-1">ตารางคำนวณและแบบฟอร์มเสนอขอจัดซื้อวัสดุประจำกลุ่มสาระฯ</p>
+                    </div>
+                    <div class="pt-1.5 border-t border-slate-100 flex items-center justify-between text-[9px]">
+                        <span class="text-slate-400">01 ก.ย. 2569</span>
+                        <button onclick="checkDownloadAuth('ฟอร์มจัดซื้อจัดจ้าง.xlsx')" class="px-2.5 py-1 rounded-lg border border-slate-200 group-hover:border-emerald-500 group-hover:bg-bcw-green group-hover:text-white text-slate-600 text-[10px] font-bold font-chakra transition-all flex items-center gap-1">
+                            <i class="fa-solid fa-download text-[9px]"></i>
+                            <span>ดาวน์โหลด</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- เอกสารที่ 4: บริหารทั่วไป -->
+                <div class="p-3 rounded-xl bg-slate-50/70 hover:bg-white border border-slate-200/60 hover:border-emerald-300 hover:shadow-xs transition-all flex flex-col justify-between space-y-2 group">
+                    <div class="space-y-1.5">
+                        <div class="flex items-center justify-between">
+                            <span class="px-2 py-0.2 rounded bg-purple-50 text-purple-700 text-[9px] font-bold">บริหารทั่วไป</span>
+                            <span class="text-[9px] text-slate-400"><i class="fa-regular fa-file-word text-blue-500 mr-1"></i>DOCX (310 KB)</span>
+                        </div>
+                        <h4 class="text-xs font-bold font-chakra text-slate-800 group-hover:text-emerald-700 transition-colors leading-snug">แบบฟอร์มขอใช้อาคารสถานที่ และยานพาหนะโรงเรียน</h4>
+                        <p class="text-[10px] text-slate-500 line-clamp-1">แบบคำขออนุญาตใช้งานห้องประชุม อาคารสถานที่ และรถบัส/รถตู้โรงเรียน</p>
+                    </div>
+                    <div class="pt-1.5 border-t border-slate-100 flex items-center justify-between text-[9px]">
+                        <span class="text-slate-400">18 ก.ย. 2569</span>
+                        <button onclick="checkDownloadAuth('แบบฟอร์มขอใช้อาคารสถานที่และยานพาหนะ.docx')" class="px-2.5 py-1 rounded-lg border border-slate-200 group-hover:border-emerald-500 group-hover:bg-bcw-green group-hover:text-white text-slate-600 text-[10px] font-bold font-chakra transition-all flex items-center gap-1">
+                            <i class="fa-solid fa-download text-[9px]"></i>
+                            <span>ดาวน์โหลด</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-3 p-2 rounded-xl bg-slate-50 border border-slate-200/60 text-slate-500 text-[10px] flex items-center gap-2">
+                <i class="fa-solid fa-circle-info text-amber-500 text-xs shrink-0"></i>
+                <span><strong>หมายเหตุ:</strong> เอกสารเปิดให้ดาวน์โหลดเฉพาะครูและบุคลากรที่เข้าสู่ระบบแล้วเท่านั้น</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODALS -->
+    <!-- Modal: สร้างโพสต์ -->
+    <div id="postModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm hidden">
+        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden border border-emerald-200">
+            <div class="bg-bcw-darkgreen text-white p-5 flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-pen-to-square text-bcw-gold text-xl"></i>
+                    <h3 class="font-chakra font-bold text-lg">สร้างโพสต์ / อัปเดตงานกลุ่มบริหาร</h3>
+                </div>
+                <button onclick="closeModal()" class="text-white text-xl hover:text-amber-300"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <form id="infohub-post-form" onsubmit="handleFormSubmit(event)" class="p-6 overflow-y-auto space-y-4 text-xs sm:text-sm">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-medium text-slate-700 mb-1">ชื่อ-สกุล ผู้โพสต์ *</label>
+                        <input type="text" id="authorName" required placeholder="เช่น ครูสมชาย ใจดี" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-bcw-green">
+                    </div>
+                    <div>
+                        <label class="block font-medium text-slate-700 mb-1">อีเมลโรงเรียน *</label>
+                        <input type="email" id="authorEmail" required placeholder="kru@buached.ac.th" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-bcw-green">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block font-medium text-slate-700 mb-1">เลือกกลุ่มงานบริหาร *</label>
+                    <select id="department" required class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-bcw-green font-medium">
+                        <option value="วิชาการ">🟢 ฝ่ายบริหารงานวิชาการ</option>
+                        <option value="งบประมาณ">🟠 ฝ่ายบริหารงานงบประมาณ</option>
+                        <option value="บุคคล">🔵 ฝ่ายบริหารงานบุคคล</option>
+                        <option value="ทั่วไป">🟣 ฝ่ายบริหารงานทั่วไป</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block font-medium text-slate-700 mb-1">ข้อความรายละเอียด / แคปชันกิจกรรม *</label>
+                    <textarea id="caption" rows="3" required placeholder="พิมพ์อัปเดตงาน หรือรายละเอียดกิจกรรมที่นี่..." class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-bcw-green leading-relaxed"></textarea>
+                </div>
+
+                <div>
+                    <label class="block font-medium text-slate-700 mb-1">แนบรูปภาพกิจกรรม/เอกสาร 🖼️</label>
+                    <input type="file" id="fileInput" accept="image/*,.pdf,.doc,.docx" multiple class="w-full p-2 border border-dashed border-slate-300 rounded-xl bg-slate-50 text-xs">
+                </div>
+
+                <div class="flex items-center gap-2 bg-emerald-50 p-3 rounded-xl border border-emerald-200">
+                    <input type="checkbox" id="isPublicPR" class="w-4 h-4 text-bcw-green rounded">
+                    <label for="isPublicPR" class="text-xs font-bold text-bcw-darkgreen cursor-pointer">
+                        🔘 แสดงผลบนฟีดข่าวหน้าแรก (Public PR)
+                    </label>
+                </div>
+
+                <div id="responseMsg" class="text-center font-bold text-xs py-1"></div>
+
+                <div class="flex items-center justify-end space-x-2 pt-2 border-t">
+                    <button type="button" onclick="closeModal()" class="px-4 py-2 text-slate-500 hover:bg-slate-100 rounded-xl">ยกเลิก</button>
+                    <button type="submit" id="submitBtn" class="px-5 py-2.5 bg-bcw-green hover:bg-bcw-darkgreen text-white font-bold rounded-xl shadow transition-all">
+                        🚀 กดบันทึกโพสต์
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: SSO -->
+    <div id="ssoLoginModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm hidden">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 border border-emerald-200 space-y-4">
+            <div class="text-center">
+                <h3 class="font-chakra font-bold text-xl text-slate-800">เข้าสู่ระบบสำหรับครู</h3>
+                <p class="text-xs text-slate-500 mt-1">ใช้อีเมลองค์กร (@buached.ac.th)</p>
+            </div>
+            <button onclick="simulateGoogleSSO('ครูอารีรัตน์ รักษ์ดี', 'areerat.r@buached.ac.th')" class="w-full py-3 border rounded-xl flex items-center justify-center space-x-2 text-xs font-semibold hover:bg-slate-50 transition-all">
+                <i class="fa-brands fa-google text-red-500"></i>
+                <span>เข้าสู่ระบบด้วย Google Account</span>
+            </button>
+            <button onclick="closeLoginModal()" class="w-full text-xs text-slate-500 hover:underline">ยกเลิก</button>
+        </div>
+    </div>
+
+    <!-- Modal: Executives -->
+    <div id="executivesModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm hidden">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-3xl w-full max-h-[90vh] flex flex-col overflow-hidden border border-emerald-200">
+            <div class="bg-bcw-darkgreen text-white p-5 flex items-center justify-between">
+                <h3 class="font-chakra font-bold text-lg">คณะผู้บริหารโรงเรียนบัวเชดวิทยา</h3>
+                <button onclick="closeExecutivesModal()" class="text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="p-6 overflow-y-auto space-y-4">
+                <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 flex items-center gap-4">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80" class="w-24 h-24 rounded-2xl object-cover">
+                    <div>
+                        <span class="px-2 py-0.5 rounded bg-bcw-green text-white text-[10px] font-bold">ผู้อำนวยการโรงเรียน</span>
+                        <h4 class="text-base font-bold font-chakra text-slate-800 mt-1">นายสมพงษ์ พัฒนากุล</h4>
+                        <p class="text-xs text-slate-600">ผู้อำนวยการชำนาญการพิเศษ โรงเรียนบัวเชดวิทยา</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Staff -->
+    <div id="staffModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm hidden">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-4xl w-full max-h-[90vh] flex flex-col overflow-hidden border border-emerald-200">
+            <div class="bg-bcw-darkgreen text-white p-5 flex items-center justify-between">
+                <h3 class="font-chakra font-bold text-lg">ทำเนียบบุคลากรครู</h3>
+                <button onclick="closeStaffModal()" class="text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="p-6 overflow-y-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4" id="staffGridContainer"></div>
+        </div>
+    </div>
+
+    <!-- Modal: Information -->
+    <div id="infoModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm hidden">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full max-h-[85vh] flex flex-col overflow-hidden border border-emerald-200">
+            <div class="bg-bcw-darkgreen text-white p-5 flex items-center justify-between">
+                <h3 class="font-chakra font-bold text-lg" id="infoModalTitle">รายละเอียด</h3>
+                <button onclick="closeInfoModal()" class="text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="p-6 overflow-y-auto space-y-4 text-sm text-slate-700 leading-relaxed" id="infoModalBody"></div>
+        </div>
+    </div>
+
+    <!-- Chat Assistant Drawer -->
+    <div id="chatDrawer" class="fixed inset-y-0 right-0 z-50 w-full max-w-md bg-white shadow-2xl transform translate-x-full transition-all duration-300 flex flex-col border-l border-slate-200">
+        <div class="bg-bcw-darkgreen text-white p-4 flex items-center justify-between">
+            <h3 class="font-chakra font-bold text-base"><i class="fa-solid fa-robot mr-2 text-bcw-gold"></i>น้องบัวเชด AI Assistant</h3>
+            <button onclick="toggleChatDrawer()" class="text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div id="chatMessages" class="flex-grow p-4 overflow-y-auto space-y-3 bg-slate-50 text-xs">
+            <div class="bg-white p-3 rounded-2xl border text-slate-700 shadow-xs">สวัสดีครับ! สอบถามข้อมูลโรงเรียนบัวเชดวิทยาได้เลยครับ 😊</div>
+        </div>
+        <form onsubmit="handleChatSubmit(event)" class="p-3 bg-white border-t flex gap-2">
+            <input type="text" id="chatInput" placeholder="พิมพ์คำถาม..." class="flex-grow px-3 py-2 text-xs bg-slate-100 border rounded-xl outline-none focus:ring-2 focus:ring-bcw-green">
+            <button type="submit" class="w-9 h-9 bg-bcw-green text-white rounded-xl hover:bg-bcw-darkgreen transition-all"><i class="fa-solid fa-paper-plane"></i></button>
+        </form>
+    </div>
+
+    <!-- Footer แบบมินิมอล ครบถ้วน -->
+    <footer id="contactFooter" class="bg-bcw-darkgreen text-slate-300 text-xs border-t border-emerald-800/60 pt-10 pb-6 mt-12 font-sarabun">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pb-8 border-b border-emerald-800/50">
+                
+                <!-- คอลัมน์ที่ 1: ข้อมูลโรงเรียน -->
+                <div class="space-y-3">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-8 h-8 rounded-full bg-emerald-100 p-0.5 flex items-center justify-center shrink-0">
+                            <svg class="w-5 h-5 text-bcw-green" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM3.82 9L12 4.54 20.18 9 12 13.46 3.82 9zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/>
+                            </svg>
+                        </div>
+                        <span class="font-chakra font-bold text-base text-white">โรงเรียนบัวเชดวิทยา</span>
+                    </div>
+                    <p class="text-[11px] text-emerald-200/70 leading-relaxed">
+                        สังกัดสำนักงานเขตพื้นที่การศึกษามัธยมศึกษาสุรินทร์ (สพม.สุรินทร์) สำนักงานคณะกรรมการการศึกษาขั้นพื้นฐาน กระทรวงศึกษาธิการ
+                    </p>
+                    <div class="flex items-center space-x-2 pt-1">
+                        <a href="https://www.facebook.com/buachedwittaya" target="_blank" class="w-7 h-7 rounded-lg bg-emerald-900/80 hover:bg-emerald-700 text-emerald-200 flex items-center justify-center transition-all border border-emerald-700/50">
+                            <i class="fa-brands fa-facebook-f text-xs"></i>
+                        </a>
+                        <a href="#" class="w-7 h-7 rounded-lg bg-emerald-900/80 hover:bg-emerald-700 text-emerald-200 flex items-center justify-center transition-all border border-emerald-700/50">
+                            <i class="fa-brands fa-youtube text-xs"></i>
+                        </a>
+                        <a href="#" class="w-7 h-7 rounded-lg bg-emerald-900/80 hover:bg-emerald-700 text-emerald-200 flex items-center justify-center transition-all border border-emerald-700/50">
+                            <i class="fa-brands fa-line text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- คอลัมน์ที่ 2: เมนูด่วน -->
+                <div class="space-y-2">
+                    <h4 class="font-chakra font-bold text-white text-xs tracking-wider uppercase border-l-2 border-bcw-gold pl-2">ลิงก์ด่วนภายใน</h4>
+                    <ul class="space-y-1.5 text-[11px] text-emerald-100/80">
+                        <li><a href="javascript:void(0)" onclick="openInfoModal('about')" class="hover:text-amber-300 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-angle-right text-[9px] text-emerald-500"></i> ประวัติความเป็นมา</a></li>
+                        <li><a href="javascript:void(0)" onclick="openExecutivesModal()" class="hover:text-amber-300 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-angle-right text-[9px] text-emerald-500"></i> คณะผู้บริหารสถานศึกษา</a></li>
+                        <li><a href="javascript:void(0)" onclick="openStaffModal()" class="hover:text-amber-300 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-angle-right text-[9px] text-emerald-500"></i> ทำเนียบบุคลากรครู</a></li>
+                        <li><a href="#downloadSection" class="hover:text-amber-300 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-angle-right text-[9px] text-emerald-500"></i> ศูนย์ดาวน์โหลดเอกสาร</a></li>
+                    </ul>
+                </div>
+
+                <!-- คอลัมน์ที่ 3: ระบบสารสนเทศ -->
+                <div class="space-y-2">
+                    <h4 class="font-chakra font-bold text-white text-xs tracking-wider uppercase border-l-2 border-bcw-gold pl-2">ระบบสารสนเทศ</h4>
+                    <ul class="space-y-1.5 text-[11px] text-emerald-100/80">
+                        <li><a href="https://sgs.boq.go.th" target="_blank" class="hover:text-amber-300 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-arrow-up-right-from-square text-[9px] text-emerald-500"></i> ระบบ SGS เพื่อการวัดผลประเมินผล</a></li>
+                        <li><a href="#" class="hover:text-amber-300 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-arrow-up-right-from-square text-[9px] text-emerald-500"></i> ระบบประเมินวิทยฐานะ (PA)</a></li>
+                        <li><a href="#" class="hover:text-amber-300 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-arrow-up-right-from-square text-[9px] text-emerald-500"></i> ระบบงานกลุ่มบริหารกิจการนักเรียน</a></li>
+                        <li><a href="#" class="hover:text-amber-300 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-arrow-up-right-from-square text-[9px] text-emerald-500"></i> ห้องเรียนออนไลน์ Google Classroom</a></li>
+                    </ul>
+                </div>
+
+                <!-- คอลัมน์ที่ 4: การติดต่อ & เวลาทำการ -->
+                <div class="space-y-2 text-[11px] text-emerald-100/80">
+                    <h4 class="font-chakra font-bold text-white text-xs tracking-wider uppercase border-l-2 border-bcw-gold pl-2">ติดต่อโรงเรียน</h4>
+                    <div class="space-y-1.5 pt-0.5">
+                        <p class="flex items-start gap-2">
+                            <i class="fa-solid fa-location-dot text-amber-400 mt-0.5 shrink-0"></i>
+                            <span>อำเภอบัวเชด จังหวัดสุรินทร์ 32230</span>
+                        </p>
+                        <p class="flex items-center gap-2">
+                            <i class="fa-solid fa-phone text-emerald-400 shrink-0"></i>
+                            <span>044-579-052 (งานธุรการ)</span>
+                        </p>
+                        <p class="flex items-center gap-2">
+                            <i class="fa-solid fa-envelope text-sky-400 shrink-0"></i>
+                            <span>admin@buached.ac.th</span>
+                        </p>
+                        <p class="flex items-center gap-2 text-[10px] text-emerald-300/60 pt-1">
+                            <i class="fa-regular fa-clock text-amber-300 shrink-0"></i>
+                            <span>เวลาทำการ: จันทร์ - ศุกร์ (08.00 - 16.30 น.)</span>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Copyright & Legal -->
+            <div class="pt-5 flex flex-col sm:flex-row items-center justify-between text-[10px] text-emerald-300/60 gap-2">
+                <p>© 2026 โรงเรียนบัวเชดวิทยา. สงวนลิขสิทธิ์ทั้งหมด (All rights reserved)</p>
+                <div class="flex items-center space-x-3">
+                    <a href="#" class="hover:underline">นโยบายความเป็นส่วนตัว (PDPA)</a>
+                    <span>•</span>
+                    <a href="#" class="hover:underline">แผนผังเว็บไซต์</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Back to Top Button -->
+    <button id="btnBackToTop" 
+            onclick="scrollToTop()" 
+            title="กลับขึ้นบนสุด" 
+            style="display: none;"
+            class="fixed bottom-6 right-6 z-50 w-11 h-11 rounded-full bg-emerald-700 hover:bg-emerald-900 text-white shadow-xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 border-2 border-white">
+        <i class="fa-solid fa-arrow-up text-base"></i>
+    </button>
+
+<!-- JavaScript Logic -->
+    <script>
+        const SCRIPT_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbwPtCTBG0E6YG7M0tcC4e943dsIK0bgWYFSaYae64hi1rQYcvSUdp8U7dl1GRCpHJcQ/exec";
+
+        let liveFeedData = [];
+        let currentFilter = 'all';
+        let isUserLoggedIn = false; 
+
+        /* ---- CALENDAR SYSTEM SCRIPT ---- */
+        const schoolCalendarEvents = [
+            { id: 1, date: '2026-09-25', title: 'สอบกลางภาคเรียนที่ 1/2569', desc: 'ระดับชั้น ม.1 - ม.6 ทุกกลุ่มสาระการเรียนรู้', type: 'exam', month: 'ก.ย.', day: '25', bg: 'bg-amber-500', tag: 'สำคัญ' },
+            { id: 2, date: '2026-10-05', title: 'ประชุมผู้ปกครองประจำภาคเรียน', desc: 'ชี้แจงผลการเรียนและแนวทางการพัฒนานักเรียน', type: 'meeting', month: 'ต.ค.', day: '05', bg: 'bg-sky-600', tag: 'ทั่วไป' },
+            { id: 3, date: '2026-10-12', title: 'วันปิดภาคเรียนที่ 1/2569', desc: 'เริ่มวันหยุดภาคเรียนของนักเรียนประจำปี', type: 'holiday', month: 'ต.ค.', day: '12', bg: 'bg-emerald-600', tag: 'วันหยุด' },
+            { id: 4, date: '2026-11-02', title: 'วันเปิดภาคเรียนที่ 2/2569', desc: 'เปิดเรียนภาคเรียนที่ 2 เข้าแถวเคารพธงชาติปกติ', type: 'academic', month: 'พ.ย.', day: '02', bg: 'bg-indigo-600', tag: 'วิชาการ' }
+        ];
+
+        function renderCalendarWidgets() {
+            const upcomingContainer = document.getElementById('upcomingCalendarWidget');
+            if (upcomingContainer) {
+                upcomingContainer.innerHTML = schoolCalendarEvents.slice(0, 2).map((ev, index) => {
+                    const isFirst = index === 0;
+                    return `
+                        <div class="${isFirst ? 'bg-gradient-to-r from-amber-50 to-orange-50/40 border-amber-200/80' : 'bg-slate-50 hover:bg-emerald-50/50 border-slate-200/70'} p-2 rounded-xl border flex items-center gap-2.5 transition-colors group">
+                            <div class="w-10 h-10 rounded-lg ${ev.bg} text-white flex flex-col items-center justify-center shrink-0 shadow-xs font-chakra">
+                                <span class="text-[8px] font-bold uppercase leading-none opacity-80">${ev.month}</span>
+                                <span class="text-sm font-extrabold leading-none mt-0.5">${ev.day}</span>
+                            </div>
+                            <div class="min-w-0 flex-1">
+                                <div class="flex items-center gap-1 mb-0.5">
+                                    <span class="px-1.5 py-0.2 rounded ${isFirst ? 'bg-amber-200 text-amber-900' : 'bg-emerald-100 text-emerald-800'} text-[8px] font-bold font-chakra">${ev.tag}</span>
+                                </div>
+                                <h5 class="font-chakra font-bold text-[11px] text-slate-800 truncate leading-tight group-hover:text-emerald-700 transition-colors">${ev.title}</h5>
+                                <p class="text-[9px] text-slate-500 truncate">${ev.desc}</p>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            const sidebarContainer = document.getElementById('sidebarCalendarEvents');
+            if (sidebarContainer) {
+                sidebarContainer.innerHTML = schoolCalendarEvents.slice(0, 3).map(ev => `
+                    <div class="p-1.5 rounded-xl bg-slate-50 border border-slate-200/60 flex items-center justify-between gap-1.5 hover:bg-emerald-50/50 transition-colors">
+                        <div class="flex items-center gap-2 min-w-0">
+                            <div class="w-7 h-7 rounded-lg ${ev.bg} text-white flex flex-col items-center justify-center shrink-0">
+                                <span class="text-[7px] font-bold uppercase leading-none opacity-80">${ev.month}</span>
+                                <span class="text-[10px] font-extrabold font-chakra leading-tight">${ev.day}</span>
+                            </div>
+                            <div class="truncate">
+                                <h5 class="font-chakra font-bold text-[10px] text-slate-800 truncate">${ev.title}</h5>
+                                <p class="text-[8px] text-slate-400 truncate">${ev.desc}</p>
+                            </div>
+                        </div>
+                        <span class="px-1.5 py-0.5 rounded bg-slate-200/70 text-slate-700 text-[7px] font-bold font-chakra shrink-0">${ev.tag}</span>
+                    </div>
+                `).join('');
+            }
+        }
+
+        const staffList = [
+            { name: "ครูสมชาย ใจดี", role: "หัวหน้ากลุ่มสาระฯ", dept: "math", email: "somchai.j@buached.ac.th", img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80" },
+            { name: "ครูอารีรัตน์ รักษ์ดี", role: "ครูชำนาญการ", dept: "math", email: "areerat.r@buached.ac.th", img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=300&q=80" }
+        ];
+
+        document.addEventListener("DOMContentLoaded", function() {
+            setDailyDateDisplay();
+            renderCalendarWidgets();
+            loadNewsFeed();
+            renderStaffGrid();
+            startAutoSlide();
+
+            window.addEventListener('scroll', function() {
+                const btn = document.getElementById('btnBackToTop');
+                if (btn) {
+                    btn.style.display = window.scrollY > 300 ? 'flex' : 'none';
+                }
+            });
+        });
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function setDailyDateDisplay() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const dateTxt = now.toLocaleDateString('th-TH', options);
+            const el = document.getElementById('dailyDateText');
+            if (el) el.innerText = dateTxt;
+        }
+
+        let currentSlide = 0;
+        const totalSlides = 3;
+        let autoSlideInterval;
+
+        function showSlide(index) {
+            document.querySelectorAll('.slide-item').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-white', 'text-emerald-700', 'shadow-2xs');
+                btn.classList.add('text-slate-500');
+            });
+
+            const targetSlide = document.getElementById(`slide-${index}`);
+            if (targetSlide) targetSlide.classList.remove('hidden');
+            
+            const activeBtn = document.getElementById(`tab-${index}`);
+            if (activeBtn) {
+                activeBtn.classList.add('bg-white', 'text-emerald-700', 'shadow-2xs');
+                activeBtn.classList.remove('text-slate-500');
+            }
+            currentSlide = index;
+        }
+
+        function nextSlide() {
+            let nextIndex = (currentSlide + 1) % totalSlides;
+            showSlide(nextIndex);
+        }
+
+        function goToSlide(index) {
+            showSlide(index);
+            stopAutoSlide();
+            startAutoSlide();
+        }
+
+        function startAutoSlide() {
+            stopAutoSlide();
+            autoSlideInterval = setInterval(nextSlide, 4000);
+        }
+
+        function stopAutoSlide() {
+            if (autoSlideInterval) clearInterval(autoSlideInterval);
+        }
+
+        async function loadNewsFeed() {
+            const feedContainer = document.getElementById('news-feed-container');
+            feedContainer.innerHTML = '<div class="col-span-full text-center py-10 text-slate-400 text-xs"><i class="fa-solid fa-spinner fa-spin mr-2"></i> กำลังดึงข่าวสารจาก Google Sheets...</div>';
+            
+            try {
+                const res = await fetch(SCRIPT_WEBAPP_URL);
+                const result = await res.json();
+                
+                if (result.status === 'success' && result.data && result.data.length > 0) {
+                    liveFeedData = result.data;
+                    renderAllSections(liveFeedData);
+                } else {
+                    feedContainer.innerHTML = '<div class="col-span-full text-center py-10 text-slate-400 text-xs">ยังไม่มีรายการโพสต์ข่าวสารในขณะนี้</div>';
+                }
+            } catch (err) {
+                feedContainer.innerHTML = '<div class="col-span-full text-center py-10 text-rose-500 text-xs">❌ ไม่สามารถโหลดฟีดข่าวได้: ' + err.message + '</div>';
+            }
+        }
+
+        function renderAllSections(data) {
+            renderMostViewedSlider(data);
+            renderFeedCards(data);
+            updateTicker(data);
+            updateStats(data);
+        }
+
+        function convertDriveUrlToDirect(url) {
+            if(!url) return 'https://via.placeholder.com/400x250?text=No+Image';
+            if(url.includes('drive.google.com')) {
+                const idMatch = url.match(/id=([a-zA-Z0-9_-]+)/) || url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+                if(idMatch && idMatch[1]) {
+                    return `https://lh3.googleusercontent.com/d/${idMatch[1]}`;
+                }
+            }
+            return url;
+        }
+
+        function renderMostViewedSlider(data) {
+            const container = document.getElementById('mostViewedSlider');
+            if (!container) return;
+            container.innerHTML = data.slice(0, 5).map(item => {
+                const imgUrl = (item.fileUrls && item.fileUrls.length > 0) ? convertDriveUrlToDirect(item.fileUrls[0]) : 'https://via.placeholder.com/300x160?text=BCW';
+                return `
+                    <div class="min-w-[220px] sm:min-w-[250px] max-w-[250px] bg-slate-50/80 hover:bg-white rounded-xl border border-slate-200/70 overflow-hidden transition-all duration-200 shrink-0 flex flex-col group hover:shadow-xs">
+                        <div class="relative h-28 bg-slate-200 overflow-hidden">
+                            <img src="${imgUrl}" onerror="this.onerror=null; this.src='https://via.placeholder.com/300x160?text=BCW';" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            <span class="absolute top-2 left-2 px-2 py-0.5 bg-black/60 text-white text-[8px] font-bold rounded font-chakra backdrop-blur-xs">
+                                ${item.department || 'ทั่วไป'}
+                            </span>
+                        </div>
+                        <div class="p-2.5 space-y-1 flex-1 flex flex-col justify-between">
+                            <div>
+                                <h4 class="font-chakra font-bold text-slate-800 text-xs truncate group-hover:text-emerald-700 transition-colors">${item.authorName || 'ผู้โพสต์'}</h4>
+                                <p class="text-[10px] text-slate-500 line-clamp-1 leading-normal mt-0.5">${item.caption || ''}</p>
+                            </div>
+                            <div class="pt-1.5 border-t border-slate-100 flex items-center justify-between text-[9px] text-slate-400">
+                                <span class="flex items-center gap-1"><i class="fa-regular fa-eye text-emerald-600"></i> เข้าชมแล้ว</span>
+                                <span class="font-bold text-emerald-700 font-chakra">ยอดนิยม</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function scrollMostViewedSlider(direction) {
+            const slider = document.getElementById('mostViewedSlider');
+            if (slider) {
+                slider.scrollBy({ left: direction * 260, behavior: 'smooth' });
+            }
+        }
+
+        /* ---- A. แก้ไขการดึงข้อมูลและแสดงผลรูปภาพในกล่องโพสต์ (Image Rendering System) ---- */
+        function renderFeedCards(data) {
+            const feedContainer = document.getElementById('news-feed-container');
+            if (!feedContainer) return;
+
+            window.currentFeedData = data;
+
+            const filteredData = (currentFilter === 'all') 
+                ? data 
+                : data.filter(i => (i.department ? i.department.trim() : '') === currentFilter.trim());
+
+            if (!filteredData || filteredData.length === 0) {
+                feedContainer.innerHTML = '<div class="col-span-full text-center py-8 text-slate-400 text-xs">ไม่พบรายการในหมวดหมู่นี้</div>';
+                return;
+            }
+
+            let cardsHtml = '';
+
+            filteredData.forEach((item, itemIdx) => {
+                const dept = item.department ? item.department.trim() : '';
+
+                let badgeStyle = 'bg-slate-100 text-purple-700 border-purple-200';
+                if (dept === 'วิชาการ') badgeStyle = 'bg-emerald-50 text-emerald-800 border-emerald-200';
+                else if (dept === 'งบประมาณ') badgeStyle = 'bg-amber-50 text-amber-800 border-amber-200';
+                else if (dept === 'บุคคล') badgeStyle = 'bg-blue-50 text-blue-800 border-blue-200';
+                else if (dept === 'ทั่วไป') badgeStyle = 'bg-rose-50 text-rose-800 border-rose-200';
+
+                const dateStr = item.timestamp ? new Date(item.timestamp).toLocaleString('th-TH') : '';
+
+                /* --- ส่วนสร้างและจัดการรูปภาพ --- */
+                let imagesHtml = '';
+                if (item.fileUrls && item.fileUrls.length > 0) {
+                    const totalImgs = item.fileUrls.length;
+                    
+                    // ปรับแต่ง Layout ตามจำนวนรูปภาพ
+                    let gridCols = 'grid-cols-1';
+                    if (totalImgs === 2) gridCols = 'grid-cols-2';
+                    else if (totalImgs >= 3) gridCols = 'grid-cols-2';
+
+                    imagesHtml = `<div class="grid ${gridCols} gap-1.5 mt-2 rounded-xl overflow-hidden bg-slate-100 p-1 border border-slate-200/80">`;
+
+                    // ดึงมาแสดงผลสูงสุด 4 รูปแรก
+                    const displayImgs = item.fileUrls.slice(0, 4);
+
+                    displayImgs.forEach((url, imgIdx) => {
+                        const directUrl = convertDriveUrlToDirect(url);
+                        const isLastAndMore = (imgIdx === 3 && totalImgs > 4);
+                        const remainingCount = totalImgs - 4;
+
+                        imagesHtml += `
+                            <div class="relative group h-36 overflow-hidden rounded-lg bg-slate-200 cursor-pointer" onclick="openGalleryModal(${itemIdx}, ${imgIdx})">
+                                <img src="${directUrl}" 
+                                     onerror="this.onerror=null; this.src='https://via.placeholder.com/400x250?text=Image+Not+Found';"
+                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
+                                     alt="รูปประกอบข่าว">
+                                ${isLastAndMore ? `
+                                    <div class="absolute inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center text-white font-chakra font-bold text-lg">
+                                        +${remainingCount + 1}
+                                    </div>
+                                ` : ''}
+                            </div>
+                        `;
+                    });
+
+                    imagesHtml += `</div>`;
+                }
+
+                cardsHtml += `
+                    <div class="bg-white p-3.5 rounded-2xl border border-slate-200/80 shadow-2xs hover:shadow-sm transition-all flex flex-col justify-between space-y-2">
+                        <div>
+                            <div class="flex items-center justify-between gap-2 mb-1.5">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-7 h-7 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold text-xs">
+                                        <i class="fa-solid fa-user"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-chakra font-bold text-xs text-slate-800 leading-tight">${item.authorName || 'ไม่ระบุชื่อ'}</h4>
+                                        <p class="text-[9px] text-slate-400">${dateStr}</p>
+                                    </div>
+                                </div>
+                                <span class="px-2 py-0.5 rounded border text-[9px] font-chakra font-bold ${badgeStyle}">
+                                    ${dept || 'ทั่วไป'}
+                                </span>
+                            </div>
+                            <p class="text-xs text-slate-700 leading-relaxed whitespace-pre-line">${item.caption || ''}</p>
+                            ${imagesHtml}
+                        </div>
+                    </div>
+                `;
+            });
+
+            feedContainer.innerHTML = cardsHtml;
+        }
+
+        function openGalleryModal(itemIdx, imgIdx) {
+            if (!window.currentFeedData || !window.currentFeedData[itemIdx]) return;
+            const item = window.currentFeedData[itemIdx];
+            
+            if (typeof openInfoModal === 'function') {
+                openInfoModal('image', convertDriveUrlToDirect(item.fileUrls[imgIdx]));
+            }
+        }
+      
+        function setDepartmentFilter(dept) {
+            currentFilter = dept;
+            document.querySelectorAll('.dept-tab').forEach(btn => {
+                btn.classList.remove('bg-bcw-green', 'text-white', 'shadow-sm');
+                btn.classList.add('bg-slate-100', 'text-slate-600');
+            });
+            const activeTab = document.getElementById(`tab-${dept}`);
+            if(activeTab) {
+                activeTab.classList.add('bg-bcw-green', 'text-white', 'shadow-sm');
+                activeTab.classList.remove('bg-slate-100', 'text-slate-600');
+            }
+            filterPosts();
+        }
+
+        function filterPosts() {
+            const query = (document.getElementById('searchInput')?.value || '').toLowerCase();
+            let filtered = liveFeedData;
+
+            if (currentFilter !== 'all') {
+                filtered = filtered.filter(i => i.department === currentFilter);
+            }
+
+            if (query) {
+                filtered = filtered.filter(i => 
+                    (i.authorName && i.authorName.toLowerCase().includes(query)) ||
+                    (i.caption && i.caption.toLowerCase().includes(query))
+                );
+            }
+
+            renderFeedCards(filtered);
+        }
+
+        function updateTicker(data) {
+            const container = document.getElementById('tickerContainer');
+            if (!container || !data || data.length === 0) return;
+            const text = data.map(i => `📢 [${i.department || 'ข่าว'}] ${i.caption}`).join(' &nbsp;&nbsp;&nbsp;&nbsp; ');
+            container.innerHTML = `<span class="mx-6">${text}</span>`;
+        }
+
+        function updateStats(data) {
+            const statTotal = document.getElementById('statTotal');
+            const statAcademic = document.getElementById('statAcademic');
+            if (statTotal) statTotal.innerText = data.length || 0;
+            if (statAcademic) {
+                const academicCount = data.filter(i => i.department === 'วิชาการ').length;
+                statAcademic.innerText = academicCount || 0;
+            }
+        }
+
+        /* ---- MISSING FUNCTIONS ADDED HERE ---- */
+        function renderStaffGrid() {
+            const container = document.getElementById('staffGridContainer');
+            if (!container) return;
+            container.innerHTML = staffList.map(s => `
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-3 flex items-center space-x-3">
+                    <img src="${s.img}" class="w-14 h-14 rounded-xl object-cover shrink-0" alt="${s.name}">
+                    <div class="truncate">
+                        <h5 class="font-chakra font-bold text-xs text-slate-800 truncate">${s.name}</h5>
+                        <p class="text-[10px] text-emerald-700 font-medium">${s.role}</p>
+                        <p class="text-[9px] text-slate-400 truncate">${s.email}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        /* Modal Handlers */
+        function openModal() { document.getElementById('postModal')?.classList.remove('hidden'); }
+        function closeModal() { document.getElementById('postModal')?.classList.add('hidden'); }
+        function openLoginModal() { document.getElementById('ssoLoginModal')?.classList.remove('hidden'); }
+        function closeLoginModal() { document.getElementById('ssoLoginModal')?.classList.add('hidden'); }
+        function openExecutivesModal() { document.getElementById('executivesModal')?.classList.remove('hidden'); }
+        function closeExecutivesModal() { document.getElementById('executivesModal')?.classList.add('hidden'); }
+        function openStaffModal() { document.getElementById('staffModal')?.classList.remove('hidden'); }
+        function closeStaffModal() { document.getElementById('staffModal')?.classList.add('hidden'); }
+
+        function openInfoModal(type, content) {
+            const modal = document.getElementById('infoModal');
+            const title = document.getElementById('infoModalTitle');
+            const body = document.getElementById('infoModalBody');
+            if (!modal || !title || !body) return;
+
+            if (type === 'about') {
+                title.innerText = 'ประวัติ & อัตลักษณ์โรงเรียนบัวเชดวิทยา';
+                body.innerHTML = '<p>โรงเรียนบัวเชดวิทยา ก่อตั้งขึ้นเพื่อให้บริการทางการศึกษาแก่เยาวชนในอำเภอบัวเชด มุ่งเน้นสร้างสรรค์ผู้เรียนให้มีความรู้ คู่คุณธรรม และพัฒนาทักษะทางเทคโนโลยี</p>';
+            } else if (type === 'vision') {
+                title.innerText = 'วิสัยทัศน์ / พันธกิจ';
+                body.innerHTML = '<p><strong>วิสัยทัศน์:</strong> เป็นสถานศึกษาชั้นนำ มุ่งพัฒนาผู้เรียนให้มีคุณภาพตามมาตรฐานสากล บนพื้นฐานความเป็นไทย และนวัตกรรม AI</p>';
+            } else if (type === 'chart') {
+                title.innerText = 'โครงสร้างการบริหารงาน';
+                body.innerHTML = '<p>การบริหารงานแบ่งเป็น 4 กลุ่มฝ่ายหลัก: บริหารงานวิชาการ, บริหารงานงบประมาณ, บริหารงานบุคคล และบริหารงานทั่วไป</p>';
+            } else if (type === 'calendar') {
+                title.innerText = 'ปฏิทินกิจกรรมทั้งหมด';
+                body.innerHTML = schoolCalendarEvents.map(e => `<div class="p-2 border-b"><strong>${e.date} (${e.tag}):</strong> ${e.title} - ${e.desc}</div>`).join('');
+            } else if (type === 'image' && content) {
+                title.innerText = 'แสดงรูปภาพกิจกรรม';
+                body.innerHTML = `<img src="${content}" class="w-full h-auto rounded-xl object-contain max-h-[60vh] mx-auto">`;
+            }
+            modal.classList.remove('hidden');
+        }
+
+        function closeInfoModal() { document.getElementById('infoModal')?.classList.add('hidden'); }
+
+        /* Auth & Chat Helpers */
+        function simulateGoogleSSO(name, email) {
+            isUserLoggedIn = true;
+            document.getElementById('btnTeacherLogin')?.classList.add('hidden');
+            const userBadge = document.getElementById('loggedInUserBadge');
+            if (userBadge) {
+                userBadge.classList.remove('hidden');
+                userBadge.classList.add('flex');
+            }
+            const txtEmail = document.getElementById('txtUserEmail');
+            if (txtEmail) txtEmail.innerText = email;
+            
+            const dlStatus = document.getElementById('downloadUserStatus');
+            if (dlStatus) {
+                dlStatus.className = "px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold font-chakra flex items-center gap-1 border border-emerald-300";
+                dlStatus.innerHTML = '<i class="fa-solid fa-circle-check text-[9px] text-emerald-600"></i><span>เข้าสู่ระบบแล้ว (สิทธิ์ครู/บุคลากร)</span>';
+            }
+            closeLoginModal();
+        }
+
+        function handleLogout() {
+            isUserLoggedIn = false;
+            document.getElementById('btnTeacherLogin')?.classList.remove('hidden');
+            const userBadge = document.getElementById('loggedInUserBadge');
+            if (userBadge) {
+                userBadge.classList.add('hidden');
+                userBadge.classList.remove('flex');
+            }
+            const dlStatus = document.getElementById('downloadUserStatus');
+            if (dlStatus) {
+                dlStatus.className = "px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 text-[10px] font-bold font-chakra flex items-center gap-1 border border-slate-200";
+                dlStatus.innerHTML = '<i class="fa-solid fa-lock text-[9px] text-amber-500"></i><span>บุคคลทั่วไป (เฉพาะหัวข้อ)</span>';
+            }
+        }
+
+        function checkDownloadAuth(fileName) {
+            if (!isUserLoggedIn) {
+                alert('⚠️ กรุณาเข้าสู่ระบบครู/บุคลากร ก่อนทำการดาวน์โหลดเอกสาร');
+                openLoginModal();
+            } else {
+                alert(`กำลังเตรียมการดาวน์โหลดไฟล์: ${fileName}`);
+            }
+        }
+
+        function toggleChatDrawer() {
+            document.getElementById('chatDrawer')?.classList.toggle('translate-x-full');
+        }
+
+        function handleChatSubmit(e) {
+            e.preventDefault();
+            const input = document.getElementById('chatInput');
+            const chatMessages = document.getElementById('chatMessages');
+            if (!input || !input.value.trim() || !chatMessages) return;
+
+            const userMsg = input.value.trim();
+            chatMessages.innerHTML += `<div class="bg-emerald-100 p-2.5 rounded-2xl text-slate-800 text-right font-medium shadow-2xs">${userMsg}</div>`;
+            input.value = '';
+
+            setTimeout(() => {
+                chatMessages.innerHTML += `<div class="bg-white p-3 rounded-2xl border text-slate-700 shadow-xs">น้องบัวเชด AI รับทราบคำถามเรื่อง "${userMsg}" แล้วครับ กำลังค้นหาข้อมูลเพิ่มเติมให้ครับ...</div>`;
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 600);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        async function handleFormSubmit(e) {
+            e.preventDefault();
+            const responseMsg = document.getElementById('responseMsg');
+            const submitBtn = document.getElementById('submitBtn');
+            if (responseMsg) {
+                responseMsg.className = "text-center font-bold text-xs py-1 text-amber-600";
+                responseMsg.innerText = "⏳ กำลังบันทึกข้อมูล...";
+            }
+            if (submitBtn) submitBtn.disabled = true;
+
+            setTimeout(() => {
+                if (responseMsg) {
+                    responseMsg.className = "text-center font-bold text-xs py-1 text-emerald-600";
+                    responseMsg.innerText = "✅ บันทึกโพสต์เรียบร้อยแล้ว!";
+                }
+                setTimeout(() => {
+                    closeModal();
+                    if (submitBtn) submitBtn.disabled = false;
+                    if (responseMsg) responseMsg.innerText = "";
+                    document.getElementById('infohub-post-form')?.reset();
+                    loadNewsFeed();
+                }, 1200);
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
